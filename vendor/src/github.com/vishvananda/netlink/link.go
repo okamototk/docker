@@ -209,6 +209,7 @@ type Vxlan struct {
 	Port         int
 	PortLow      int
 	PortHigh     int
+        UDPCSum      bool
 }
 
 func (vxlan *Vxlan) Attrs() *LinkAttrs {

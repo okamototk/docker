@@ -55,6 +55,7 @@ func createVxlan(name string, vni uint32) error {
 		VxlanId:   int(vni),
 		Learning:  true,
 		Port:      int(nl.Swap16(vxlanPort)), //network endian order
+		UDPCSum:   true,
 		Proxy:     true,
 		L3miss:    true,
 		L2miss:    true,

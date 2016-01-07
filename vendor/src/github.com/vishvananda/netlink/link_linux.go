@@ -273,6 +273,9 @@ func addVxlanAttrs(vxlan *Vxlan, linkInfo *nl.RtAttr) {
 
 		nl.NewRtAttrChild(data, nl.IFLA_VXLAN_PORT_RANGE, buf.Bytes())
 	}
+	if vxlan.UDPCSum {
+		nl.NewRtAttrChild(data, nl.IFLA_VXLAN_UDP_CSUM, boolAttr(vxlan.UDPCSum))
+	}
 }
 
 // LinkAdd adds a new link device. The type and features of the device
@@ -769,6 +772,8 @@ func parseVxlanData(link Link, data []syscall.NetlinkRouteAttr) {
 				vxlan.PortHigh = int(pr.Hi)
 			}
 		}
+		case nl.IFLA_VXLAN_UDP_CSUM:
+			vxlan.UDPCSum = int8(datum.Value[0]) != 0
 	}
 }
 
